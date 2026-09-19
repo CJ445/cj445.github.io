@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FaEye } from 'react-icons/fa';
 
 const COUNTER_URL = 'https://cj445.goatcounter.com/counter/TOTAL.json';
 
@@ -6,7 +7,7 @@ const COUNTER_URL = 'https://cj445.goatcounter.com/counter/TOTAL.json';
  * Shows the unique-visitor total tracked by GoatCounter.
  * Renders nothing until a real number arrives, so a blocked or failed request leaves no gap.
  */
-const VisitorCount = () => {
+const VisitorCount = ({ className = '' }: { className?: string }) => {
   const [visitors, setVisitors] = useState<number | null>(null);
 
   useEffect(() => {
@@ -27,8 +28,11 @@ const VisitorCount = () => {
   if (visitors === null) return null;
 
   return (
-    <p className="text-sm text-gray-300 mb-2">
-      <span className="font-mono font-bold text-custom-green">{visitors.toLocaleString('en-US')}</span> visitors so far
+    <p
+      className={`inline-flex items-center gap-2 bg-white text-black border-2 border-black rounded-full px-3 py-1 font-mono text-xs font-bold shadow-neo-sm ${className}`}
+    >
+      <FaEye aria-hidden="true" />
+      <span>{visitors.toLocaleString('en-US')} visitors</span>
     </p>
   );
 };

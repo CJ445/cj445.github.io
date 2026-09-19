@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaGithub, FaLinkedin, FaEnvelope, FaMedium, FaDownload, FaInstagram } from 'react-icons/fa';
 import ContactModal from '../ui/ContactModal';
 import MiniTerminal from '../ui/MiniTerminal';
+import VisitorCount from '../ui/VisitorCount';
 
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -79,6 +80,8 @@ const Hero = () => {
             </li>
           ))}
         </ul>
+
+        <VisitorCount className="mt-4" />
       </div>
 
 
