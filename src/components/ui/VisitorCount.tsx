@@ -4,7 +4,8 @@ import { FaEye } from 'react-icons/fa';
 const COUNTER_URL = 'https://cj445.goatcounter.com/counter/TOTAL.json';
 
 /**
- * Shows the unique-visitor total tracked by GoatCounter.
+ * Shows the visitor total tracked by GoatCounter.
+ * GoatCounter caches this public counter for up to four hours, so new visits appear with a delay.
  * Renders nothing until a real number arrives, so a blocked or failed request leaves no gap.
  */
 const VisitorCount = ({ className = '' }: { className?: string }) => {
@@ -14,9 +15,9 @@ const VisitorCount = ({ className = '' }: { className?: string }) => {
     const controller = new AbortController();
     fetch(COUNTER_URL, { signal: controller.signal })
       .then((res) => (res.ok ? res.json() : Promise.reject(new Error(String(res.status)))))
-      .then((data: { count_unique?: string }) => {
+      .then((data: { count?: string; count_unique?: string }) => {
         // GoatCounter formats numbers with separators ("1 234"), so keep digits only.
-        const n = Number(String(data.count_unique ?? '').replace(/\D/g, ''));
+        const n = Number(String(data.count ?? data.count_unique ?? '').replace(/\D/g, ''));
         if (Number.isFinite(n) && n > 0) setVisitors(n);
       })
       .catch(() => {
