@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaGithub, FaLinkedin, FaEnvelope, FaMedium, FaFileAlt, FaInstagram } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaMedium, FaDownload, FaInstagram } from 'react-icons/fa';
 import ContactModal from '../ui/ContactModal';
 import MiniTerminal from '../ui/MiniTerminal';
 
@@ -44,10 +44,11 @@ const Hero = () => {
 
         <div className="w-full flex flex-col gap-3 mt-6">
           <a
-            href="mailto:itscyriljacob@gmail.com?subject=Resume%20request&body=Hi%20Cyril%2C%20could%20you%20share%20your%20resume%3F"
+            href={`${import.meta.env.BASE_URL}Cyril_Jacob_Resume.pdf`}
+            download="Cyril_Jacob_Resume.pdf"
             className="bg-custom-green w-full min-h-11 py-3 rounded-xl border-2 border-black font-bold shadow-neo-sm hover:translate-y-1 hover:shadow-none transition-all flex items-center justify-center gap-2 cursor-pointer"
           >
-            <FaFileAlt aria-hidden="true" /> REQUEST_RESUME
+            <FaDownload aria-hidden="true" /> DOWNLOAD_RESUME
           </a>
           <button
             onClick={() => setIsModalOpen(true)}
