@@ -1,4 +1,4 @@
-import { FaExternalLinkAlt } from 'react-icons/fa';
+import { FaArrowRight } from 'react-icons/fa';
 import { benchmark, featuredProjects } from '../../data/portfolio';
 import type { FeaturedProject } from '../../data/portfolio';
 import Section from '../ui/Section';
@@ -34,7 +34,7 @@ const BenchmarkTable = () => (
         </tbody>
       </table>
     </div>
-    <p className="mt-2 text-xs text-secondary">Comparison from the team's benchmarking in the technical report.</p>
+    <p className="mt-2 text-xs text-secondary">Comparison from the team's benchmarking.</p>
   </div>
 );
 
@@ -79,12 +79,10 @@ const ProjectCard = ({ project }: { project: FeaturedProject }) => (
       <TagList tags={project.tags} />
       {project.link && (
         <a
-          href={project.link.href}
-          target="_blank"
-          rel="noreferrer"
+          href={asset(project.link.href)}
           className="inline-flex min-h-10 items-center gap-2 rounded-full border border-primary/10 bg-white px-4 py-2 text-sm hover:bg-primary/5"
         >
-          {project.link.label} <FaExternalLinkAlt aria-hidden="true" className="text-xs" />
+          {project.link.label} <FaArrowRight aria-hidden="true" className="text-xs" />
         </a>
       )}
     </div>

@@ -51,7 +51,7 @@ export const featuredProjects: FeaturedProject[] = [
     stats: [
       { value: '41.45 dB', label: 'PSNR on the official ISRO test set' },
       { value: '0.97', label: 'SSIM, above the 0.96 HighRes-Net baseline' },
-      { value: '33', label: 'epochs to match a baseline that needed 84' },
+      { value: '33', label: 'epochs, against 84 for our HighRes-Net track' },
     ],
     points: [
       'Two tracks were compared: a HighRes-Net tuned with 50 Optuna trials (40.5 dB, 0.96 SSIM) and an enhanced dual SwinIR (41.45 dB, 0.97 SSIM) trained with a composite MSE, SSIM, edge-gradient and perceptual loss.',
@@ -59,10 +59,7 @@ export const featuredProjects: FeaturedProject[] = [
       'A ViT + ResNet-50 blind quality regressor was trained on 17,344 image pairs across 1,084 scenes, because PSNR and SSIM alone can reward soft, blurry output.',
     ],
     tags: ['PyTorch', 'SwinIR', 'HighRes-Net', 'Optuna', 'ViT', 'ResNet-50', 'GeoTIFF'],
-    link: {
-      href: 'https://ayush-david.github.io/documents/reports/satellite-sr.html',
-      label: 'Team technical report',
-    },
+    link: { href: 'reports/satellite-sr/', label: 'Read the case study' },
   },
   {
     id: 'thermal-sr',
