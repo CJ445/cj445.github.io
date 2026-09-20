@@ -11,7 +11,7 @@ const Writing = () => (
           href={a.href}
           target="_blank"
           rel="noreferrer"
-          className="group flex flex-col rounded-[1.75rem] border border-primary/10 bg-white p-5 shadow-sm transition-colors hover:bg-primary/[0.02] sm:p-6"
+          className="group flex flex-col rounded-[1.75rem] border border-primary/10 bg-raised p-5 shadow-sm transition-colors hover:bg-primary/[0.02] sm:p-6"
         >
           <h3 className="flex items-start justify-between gap-3 text-lg leading-tight">
             {a.title}

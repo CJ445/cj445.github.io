@@ -5,7 +5,7 @@ import { TagList } from '../ui/Tag';
 const Education = () => (
   <Section id="education" eyebrow="Background" title="Education & publications">
     <div className="flex flex-col gap-10">
-      <div className="rounded-[1.75rem] border border-primary/10 bg-white p-5 shadow-sm sm:p-6">
+      <div className="rounded-[1.75rem] border border-primary/10 bg-raised p-5 shadow-sm sm:p-6">
         <div className="grid gap-2 md:grid-cols-[minmax(0,1fr)_auto] md:gap-6">
           <div>
             <h3 className="text-lg font-medium">{education.degree}</h3>

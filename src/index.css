@@ -1,12 +1,56 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Semantic tokens: components use the names (text-primary, bg-raised, ...), never a fixed light or dark value.
+   Dark follows Apple's base/elevated model: the page recedes, cards advance. */
+:root {
+  color-scheme: light;
+  --ink: #1c212b;
+  --ink-2: #677084;
+  --accent: #6d28d9;
+  --surface: #ffffff;
+  --raised: #ffffff;
+  --stage: #0c1017;
+  --grid: rgba(28, 33, 43, 0.05);
+  --grid-soft: rgba(28, 33, 43, 0.035);
+  --banner: linear-gradient(135deg, #ede9fe 0%, #dbeafe 55%, #d1fae5 100%);
+  --tint: linear-gradient(160deg, #f8fbff 0%, #f2f7ff 44%, #edf4fb 72%, #f7fbff 100%);
+}
+
+:root.dark {
+  color-scheme: dark;
+  --ink: #e8ecf4;
+  --ink-2: #9ba6ba;
+  --accent: #a78bfa;
+  --surface: #07090e;
+  --raised: #0e121a;
+  --stage: #030509;
+  --grid: rgba(255, 255, 255, 0.045);
+  --grid-soft: rgba(255, 255, 255, 0.03);
+  --banner: linear-gradient(135deg, #130d2e 0%, #0a1330 55%, #071f22 100%);
+  --tint: linear-gradient(160deg, #0a0d15 0%, #0c1220 44%, #0a1119 72%, #0a0d15 100%);
+}
+
+/* Increase Contrast: lift secondary text further in both appearances. */
+@media (prefers-contrast: more) {
+  :root {
+    --ink-2: #4b5468;
+  }
+  :root.dark {
+    --ink-2: #b7c0d1;
+  }
+}
+
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 
-  /* Slate ink on white; violet is the single accent. */
-  --color-primary: #1c212b;
-  --color-secondary: #677084;
-  --color-accent: #6d28d9;
+  --color-primary: var(--ink);
+  --color-secondary: var(--ink-2);
+  --color-accent: var(--accent);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-stage: var(--stage);
 }
 
 html {
@@ -15,15 +59,29 @@ html {
 
 body {
   margin: 0;
-  background: #fff;
-  color: var(--color-primary);
+  background: var(--surface);
+  color: var(--ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
-/* Soft blue wash with a faint grid that fades toward the edges. */
+.hero-banner {
+  background: var(--banner);
+}
+
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, black, transparent);
+}
+
+/* Soft wash with a faint grid that fades toward the edges. */
 .section-tint {
-  background: linear-gradient(160deg, #f8fbff 0%, #f2f7ff 44%, #edf4fb 72%, #f7fbff 100%);
+  background: var(--tint);
 }
 
 .section-tint::before {
@@ -32,10 +90,111 @@ body {
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(28, 33, 43, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(28, 33, 43, 0.035) 1px, transparent 1px);
+    linear-gradient(var(--grid-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-soft) 1px, transparent 1px);
   background-size: 108px 108px;
   mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
+}
+
+/* Night only: the daylight banner's three hues, emitted as light. */
+.hero-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transform-origin: 50% 100%;
+  background:
+    radial-gradient(48% 90% at 22% 100%, rgba(139, 92, 246, 0.55), transparent 70%),
+    radial-gradient(42% 80% at 82% 100%, rgba(45, 212, 191, 0.32), transparent 70%),
+    radial-gradient(30% 60% at 55% 110%, rgba(96, 165, 250, 0.35), transparent 70%);
+}
+
+.dark .hero-glow {
+  opacity: 0.85;
+}
+
+.dark .avatar {
+  box-shadow:
+    0 0 0 1px rgba(167, 139, 250, 0.35),
+    0 0 44px rgba(124, 92, 246, 0.38);
+}
+
+/* Images with white backgrounds (plots) would glow against a dark page. */
+.dark .dim-dark {
+  filter: brightness(0.84) contrast(1.05);
+}
+
+/* Ignition. Runs on a deliberate switch to night, and once on load if the visitor is already in night.
+   The light sweep accelerates like rising RPM; the glow overshoots, then settles to idle.
+   Nothing here blocks the page, and Reduce Motion collapses it to the end state. */
+html.igniting::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent 0%, #8b5cf6 30%, #60a5fa 60%, #34d399 85%, transparent 100%);
+  box-shadow: 0 0 18px rgba(139, 92, 246, 0.7);
+  animation: ignite-sweep 900ms cubic-bezier(0.5, 0.05, 0.75, 0.3) 100ms both;
+}
+
+html.igniting .hero-glow {
+  animation: ignite-glow 1500ms cubic-bezier(0.3, 0, 0.2, 1) 120ms both;
+}
+
+html.igniting .avatar {
+  animation: ignite-halo 1500ms cubic-bezier(0.3, 0, 0.2, 1) 120ms both;
+}
+
+@keyframes ignite-sweep {
+  0% {
+    opacity: 1;
+    transform: translateX(-100%);
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+@keyframes ignite-glow {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+}
+
+@keyframes ignite-halo {
+  0% {
+    box-shadow: 0 0 0 1px rgba(167, 139, 250, 0), 0 0 0 rgba(124, 92, 246, 0);
+  }
+  55% {
+    box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.6), 0 0 72px rgba(124, 92, 246, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.35), 0 0 44px rgba(124, 92, 246, 0.38);
+  }
+}
+
+/* The theme reveal is driven from script; suppress the default cross-fade so only the circle shows. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
 :focus-visible {

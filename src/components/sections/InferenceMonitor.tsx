@@ -339,7 +339,7 @@ const InferenceMonitor = () => {
 
   return (
     <div ref={sectionRef}>
-      <div className="overflow-hidden rounded-[1.75rem] border border-primary/10 bg-white shadow-sm">
+      <div className="overflow-hidden rounded-[1.75rem] border border-primary/10 bg-raised shadow-sm">
         <div className="flex items-center justify-between border-b border-primary/10 px-4 py-3 text-sm">
           <span className="font-medium">YOLOv8n · object detection</span>
           <span className="flex items-center gap-2 text-xs text-secondary">
@@ -350,7 +350,7 @@ const InferenceMonitor = () => {
 
         <div className="grid lg:grid-cols-[minmax(0,1fr)_320px]">
           {/* Stage */}
-          <div className="relative min-h-[22rem] border-primary/10 bg-primary text-white lg:min-h-[26rem] lg:border-r">
+          <div className="relative min-h-[22rem] border-primary/10 bg-stage text-white lg:min-h-[26rem] lg:border-r">
             <canvas
               ref={canvasRef}
               width={640}
@@ -370,7 +370,7 @@ const InferenceMonitor = () => {
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <button
                     onClick={() => start('camera')}
-                    className="min-h-11 cursor-pointer rounded-full bg-white px-6 py-2 text-sm font-medium text-primary transition-colors hover:bg-white/90"
+                    className="min-h-11 cursor-pointer rounded-full bg-white px-6 py-2 text-sm font-medium text-stage transition-colors hover:bg-white/90"
                   >
                     Start camera
                   </button>
@@ -386,7 +386,7 @@ const InferenceMonitor = () => {
                   and runtime), then it is cached.
                 </p>
                 {error && (
-                  <p role="alert" className="max-w-md rounded-lg bg-amber-100 px-3 py-2 text-sm text-amber-900">
+                  <p role="alert" className="max-w-md rounded-lg bg-amber-100 px-3 py-2 text-sm text-amber-900 dark:bg-amber-400/15 dark:text-amber-200">
                     {error}
                   </p>
                 )}
@@ -394,7 +394,7 @@ const InferenceMonitor = () => {
             )}
 
             {loading && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-primary/90 p-6 text-center">
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-stage/90 p-6 text-center">
                 <p role="status">{loading.text}</p>
                 {loading.progress !== undefined && (
                   <div
@@ -412,7 +412,7 @@ const InferenceMonitor = () => {
             )}
 
             {running && !loading && error && (
-              <p role="alert" className="absolute bottom-3 left-3 right-3 rounded-lg bg-amber-100 px-3 py-2 text-sm text-amber-900">
+              <p role="alert" className="absolute bottom-3 left-3 right-3 rounded-lg bg-amber-100 px-3 py-2 text-sm text-amber-900 dark:bg-amber-400/15 dark:text-amber-200">
                 {error}
               </p>
             )}
@@ -426,7 +426,7 @@ const InferenceMonitor = () => {
                 {options.map((opt) => (
                   <label
                     key={opt}
-                    className="flex min-h-11 cursor-pointer items-center justify-between gap-3 rounded-xl border border-primary/10 px-3 py-2 text-sm has-[:checked]:border-accent has-[:checked]:bg-violet-50 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-accent"
+                    className="flex min-h-11 cursor-pointer items-center justify-between gap-3 rounded-xl border border-primary/10 px-3 py-2 text-sm has-[:checked]:border-accent has-[:checked]:bg-accent/10 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-accent"
                   >
                     <span className="flex items-center gap-2">
                       <input
@@ -435,7 +435,7 @@ const InferenceMonitor = () => {
                         value={opt}
                         checked={variant === opt}
                         onChange={() => changeVariant(opt)}
-                        className="accent-[#6d28d9]"
+                        className="accent-accent"
                       />
                       {VARIANTS[opt].label}
                     </span>
@@ -454,8 +454,8 @@ const InferenceMonitor = () => {
 
             <div>
               <div className="mb-1 text-xs uppercase tracking-[2px] text-primary/60">Inference latency</div>
-              <svg viewBox="0 0 100 36" preserveAspectRatio="none" className="h-10 w-full" aria-hidden="true">
-                <polyline points={sparkPoints} fill="none" stroke="#6d28d9" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
+              <svg viewBox="0 0 100 36" preserveAspectRatio="none" className="h-10 w-full text-accent" aria-hidden="true">
+                <polyline points={sparkPoints} fill="none" stroke="currentColor" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
               </svg>
             </div>
 

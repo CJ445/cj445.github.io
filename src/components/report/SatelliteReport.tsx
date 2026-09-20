@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { benchmark } from '../../data/portfolio';
 import Footer from '../layout/Footer';
+import ThemeToggle from '../ui/ThemeToggle';
 import { TagList } from '../ui/Tag';
 
 const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
@@ -83,18 +84,19 @@ const P = ({ children }: { children: ReactNode }) => <p className="leading-7 tex
 const psnrMax = 45;
 
 const SatelliteReport = () => (
-  <div className="min-h-screen overflow-x-hidden bg-white selection:bg-violet-200">
+  <div className="min-h-screen overflow-x-hidden bg-surface selection:bg-accent/30">
     <header>
       <div className="mx-auto w-full max-w-[70.9rem]">
-        <div className="relative overflow-hidden rounded-b-[2rem] bg-[linear-gradient(135deg,#ede9fe_0%,#dbeafe_55%,#d1fae5_100%)]">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-[linear-gradient(rgba(28,33,43,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(28,33,43,0.05)_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:linear-gradient(to_bottom,black,transparent)]"
-          />
+        <div className="hero-banner relative overflow-hidden rounded-b-[2rem]">
+          <div aria-hidden="true" className="hero-glow" />
+          <div aria-hidden="true" className="grid-overlay" />
           <div className="relative mx-auto max-w-5xl px-5 pb-14 pt-8 sm:px-7 sm:pb-20">
-            <a href={asset('')} className="inline-flex min-h-10 items-center gap-2 text-sm text-secondary hover:text-primary">
-              <FaArrowLeft aria-hidden="true" className="text-xs" /> Back to portfolio
-            </a>
+            <div className="flex items-center justify-between">
+              <a href={asset('')} className="inline-flex min-h-10 items-center gap-2 text-sm text-secondary hover:text-primary">
+                <FaArrowLeft aria-hidden="true" className="text-xs" /> Back to portfolio
+              </a>
+              <ThemeToggle />
+            </div>
             <p className="mt-10 text-xs uppercase tracking-[2px] text-primary/60">Case study · Team HumbleOps</p>
             <h1 className="mt-3 max-w-3xl text-[clamp(1.8rem,3.4vw,2.75rem)] font-normal leading-[1.1] tracking-[-0.03em]">
               Two blurry satellite frames in, one sharp image out
@@ -115,7 +117,7 @@ const SatelliteReport = () => (
       <div className="border-x border-primary/10">
         <div className="mx-auto grid max-w-5xl gap-10 px-5 py-14 sm:px-7 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-14">
           <aside className="lg:sticky lg:top-8 lg:self-start">
-            <div className="rounded-[1.75rem] border border-primary/10 bg-white p-5 shadow-sm">
+            <div className="rounded-[1.75rem] border border-primary/10 bg-raised p-5 shadow-sm">
               <h2 className="text-xs font-normal uppercase tracking-[2px] text-primary/60">At a glance</h2>
               <dl className="mt-4 space-y-3">
                 {glance.map((g) => (
@@ -163,7 +165,7 @@ const SatelliteReport = () => (
               <ol className="grid gap-3 sm:grid-cols-2">
                 {pipeline.map((s, i) => (
                   <li key={s.step} className="flex gap-4 rounded-2xl border border-primary/10 bg-primary/[0.03] p-4">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-xs text-white">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-xs text-surface">
                       {i + 1}
                     </span>
                     <div>
@@ -181,11 +183,11 @@ const SatelliteReport = () => (
                 SwinIR around a hand-designed loss. Both were trained on the same task and compared on the same
                 metrics.
               </P>
-              <div className="overflow-hidden rounded-2xl border border-primary/10 bg-white text-sm">
+              <div className="overflow-hidden rounded-2xl border border-primary/10 bg-raised text-sm">
                 <div className="hidden grid-cols-[7rem_minmax(0,1fr)_minmax(0,1fr)] border-b border-primary/10 text-xs sm:grid">
                   <span className="px-4 py-3" />
                   <span className="px-4 py-3 font-medium text-secondary">Track 1: Optuna HighRes-Net</span>
-                  <span className="bg-violet-50 px-4 py-3 font-medium text-accent">Track 2: Dual SwinIR (submitted)</span>
+                  <span className="bg-accent/10 px-4 py-3 font-medium text-accent">Track 2: Dual SwinIR (submitted)</span>
                 </div>
                 <ul>
                   {comparison.map((c) => (
@@ -198,7 +200,7 @@ const SatelliteReport = () => (
                         <span className="block text-xs text-secondary sm:hidden">Track 1</span>
                         {c.a}
                       </span>
-                      <span className="bg-violet-50/50 px-4 py-2 leading-6 sm:py-3">
+                      <span className="bg-accent/5 px-4 py-2 leading-6 sm:py-3">
                         <span className="block text-xs text-accent sm:hidden">Track 2 (submitted)</span>
                         {c.b}
                       </span>
@@ -235,7 +237,7 @@ const SatelliteReport = () => (
                   src={asset('images/projects/satellite-sr.webp')}
                   alt="The same street shown three ways: super-resolved output (SR), high-resolution reference (HR) and low-resolution input (LR)."
                   loading="lazy"
-                  className="w-full rounded-2xl border border-primary/10"
+                  className="dim-dark w-full rounded-2xl border border-primary/10"
                 />
                 <figcaption className="mt-2 text-xs text-secondary">
                   Super-resolved output (SR), the high-resolution reference (HR) and the low-resolution input (LR) for

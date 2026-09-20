@@ -11,7 +11,7 @@ import Skills from './components/sections/Skills';
 import Writing from './components/sections/Writing';
 
 const App = () => (
-  <div className="min-h-screen overflow-x-hidden bg-white selection:bg-violet-200">
+  <div className="min-h-screen overflow-x-hidden bg-surface selection:bg-accent/30">
     <Hero />
     <main>
       <About />

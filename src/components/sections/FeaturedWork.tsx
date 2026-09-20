@@ -9,7 +9,7 @@ const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
 const BenchmarkTable = () => (
   <div className="mt-6">
     <p className="mb-3 text-xs uppercase tracking-[2px] text-primary/60">Benchmark: PSNR and SSIM</p>
-    <div className="overflow-x-auto rounded-2xl border border-primary/10 bg-white">
+    <div className="overflow-x-auto rounded-2xl border border-primary/10 bg-raised">
       <table className="w-full min-w-[30rem] text-left text-sm">
         <thead>
           <tr className="border-b border-primary/10 text-xs text-secondary">
@@ -23,7 +23,7 @@ const BenchmarkTable = () => (
           {benchmark.map((row) => (
             <tr
               key={row.model}
-              className={`border-b border-dashed border-primary/10 last:border-b-0 ${row.ours ? 'bg-violet-50 font-medium' : ''}`}
+              className={`border-b border-dashed border-primary/10 last:border-b-0 ${row.ours ? 'bg-accent/10 font-medium' : ''}`}
             >
               <th scope="row" className="px-4 py-3 font-normal">{row.model}</th>
               <td className="px-4 py-3 text-right tabular-nums">{row.psnr}</td>
@@ -39,7 +39,7 @@ const BenchmarkTable = () => (
 );
 
 const ProjectCard = ({ project }: { project: FeaturedProject }) => (
-  <article className="rounded-[1.75rem] border border-primary/10 bg-white p-5 shadow-sm sm:p-6">
+  <article className="rounded-[1.75rem] border border-primary/10 bg-raised p-5 shadow-sm sm:p-6">
     <p className="text-xs uppercase tracking-[2px] text-primary/60">{project.eyebrow}</p>
     <h3 className="mt-3 text-xl leading-tight">{project.title}</h3>
     <p className="mt-4 leading-7 text-secondary">{project.summary}</p>
@@ -49,7 +49,7 @@ const ProjectCard = ({ project }: { project: FeaturedProject }) => (
         src={asset(project.image.src)}
         alt={project.image.alt}
         loading="lazy"
-        className="w-full rounded-2xl border border-primary/10"
+        className="dim-dark w-full rounded-2xl border border-primary/10"
       />
       <figcaption className="mt-2 text-xs text-secondary">{project.image.caption}</figcaption>
     </figure>
@@ -80,7 +80,7 @@ const ProjectCard = ({ project }: { project: FeaturedProject }) => (
       {project.link && (
         <a
           href={asset(project.link.href)}
-          className="inline-flex min-h-10 items-center gap-2 rounded-full border border-primary/10 bg-white px-4 py-2 text-sm hover:bg-primary/5"
+          className="inline-flex min-h-10 items-center gap-2 rounded-full border border-primary/10 bg-raised px-4 py-2 text-sm hover:bg-primary/5"
         >
           {project.link.label} <FaArrowRight aria-hidden="true" className="text-xs" />
         </a>
