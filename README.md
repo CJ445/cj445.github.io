@@ -1,6 +1,6 @@
 # Cyril Jacob — Portfolio
 
-Personal portfolio: experience, projects, writing, and a live in-browser object-detection demo (YOLOv8n running FP32 vs INT8 on ONNX Runtime Web).
+Personal portfolio: experience, featured ISRO super-resolution projects with results, writing, and a live in-browser object-detection demo (YOLOv8n running FP32 vs INT8 on ONNX Runtime Web).
 
 Live at **https://cj445.github.io**
 
@@ -8,8 +8,12 @@ Live at **https://cj445.github.io**
 
 - [React 19](https://react.dev/) + [Vite](https://vitejs.dev/) + TypeScript
 - [Tailwind CSS v4](https://tailwindcss.com/)
-- [Framer Motion](https://www.framer.com/motion/), [React Icons](https://react-icons.github.io/react-icons/)
+- [React Icons](https://react-icons.github.io/react-icons/)
 - [ONNX Runtime Web](https://onnxruntime.ai/docs/tutorials/web/) for the Inference Monitor
+
+## Content
+
+All copy lives in `src/data/portfolio.ts`; the section components only render it. Project images are in `public/images/projects/`.
 
 ## Run locally
 

@@ -1,113 +1,49 @@
-/* Import Tailwind */
 @import "tailwindcss";
 
-/* ================================
-   Theme (replaces tailwind.config.js)
-   ================================ */
 @theme {
-  /* Colors */
-  --color-custom-pink: #FF9FAC;
-  --color-custom-purple: #A78BFA;
-  --color-custom-blue: #60A5FA;
-  --color-custom-red: #F87171;
-  --color-custom-yellow: #FCD34D;
-  --color-custom-green: #4ADE80;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 
-  /* Fonts */
-  --font-shrikhand: "Shrikhand", cursive;
-  --font-sans: "Inter", sans-serif;
-
-  /* Shadows */
-  --shadow-neo: 6px 6px 0px 0px rgba(0,0,0,1);
-  --shadow-neo-sm: 4px 4px 0px 0px rgba(0,0,0,1);
+  /* Slate ink on white; violet is the single accent. */
+  --color-primary: #1c212b;
+  --color-secondary: #677084;
+  --color-accent: #6d28d9;
 }
 
-/* ================================
-   Base styles (v4 way)
-   ================================ */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background-color: var(--color-custom-purple);
-  color: black;
+  margin: 0;
+  background: #fff;
+  color: var(--color-primary);
   font-family: var(--font-sans);
-  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ================================
-   Custom Scrollbar
-   ================================ */
-::-webkit-scrollbar {
-  width: 12px;
+/* Soft blue wash with a faint grid that fades toward the edges. */
+.section-tint {
+  background: linear-gradient(160deg, #f8fbff 0%, #f2f7ff 44%, #edf4fb 72%, #f7fbff 100%);
 }
 
-::-webkit-scrollbar-track {
-  background: white;
-  border-left: 2px solid black;
+.section-tint::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(28, 33, 43, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(28, 33, 43, 0.035) 1px, transparent 1px);
+  background-size: 108px 108px;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
 }
 
-::-webkit-scrollbar-thumb {
-  background: black;
-  border-radius: 9999px;
-  border: 2px solid white;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-custom-pink);
-}
-
-@keyframes marquee {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-.animate-marquee {
-  animation: marquee 80s linear infinite;
-}
-
-@keyframes marquee-track {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-.animate-marquee-track {
-  animation: marquee-track 45s linear infinite;
-}
-
-/* Hover or keyboard focus pauses the marquee so it can be read. */
-.animate-marquee-track:hover,
-.group:hover .animate-marquee-track,
-.group:focus-within .animate-marquee-track {
-  animation-play-state: paused;
-}
-
-
-/* Custom Scrollbar for the Terminal */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: #000;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #22d3ee; /* Tailwind cyan-400 */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
   border-radius: 4px;
 }
 
-/* ================================
-   Accessibility
-   ================================ */
-
-/* One focus ring that reads on light, dark, and colored surfaces. */
-:focus-visible {
-  outline: 3px solid #000;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 6px #fff;
-}
-
-/* Let people who ask for less motion have it. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -117,13 +53,6 @@ body {
   *::before,
   *::after {
     animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  .animate-marquee,
-  .animate-marquee-track {
-    animation: none !important;
   }
 }

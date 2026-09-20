@@ -1,14 +1,13 @@
-import React from 'react';
-
-const Footer = () => {
-  return (
-    <footer className="bg-black text-white py-8 border-t-4 border-white mt-20 text-center">
-        <h2 className="text-2xl font-shrikhand text-custom-pink mb-2">Made with ☕ and 💻</h2>
-        <div className="text-xs text-gray-400">
-            © {new Date().getFullYear()} Cyril Jacob. All rights reserved.
-        </div>
-    </footer>
-  );
-};
+const Footer = () => (
+  <footer className="border-t border-primary/10 bg-white">
+    <div className="mx-auto w-full max-w-[70.9rem]">
+      <div className="border-x border-primary/10">
+        <p className="mx-auto max-w-3xl px-5 py-5 text-sm text-secondary sm:px-7">
+          © {new Date().getFullYear()} Cyril Jacob
+        </p>
+      </div>
+    </div>
+  </footer>
+);
 
 export default Footer;

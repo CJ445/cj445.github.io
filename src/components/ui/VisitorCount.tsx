@@ -30,7 +30,7 @@ const VisitorCount = ({ className = '' }: { className?: string }) => {
 
   return (
     <p
-      className={`inline-flex items-center gap-2 bg-white text-black border-2 border-black rounded-full px-3 py-1 font-mono text-xs font-bold shadow-neo-sm ${className}`}
+      className={`inline-flex items-center gap-2 rounded-full border border-primary/10 bg-white px-3 py-1 text-xs text-secondary ${className}`}
     >
       <FaEye aria-hidden="true" />
       <span>{visitors.toLocaleString('en-US')} visitors</span>

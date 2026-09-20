@@ -1,112 +1,85 @@
-import React, { useState } from 'react';
-import { FaGithub, FaLinkedin, FaEnvelope, FaMedium, FaDownload, FaInstagram } from 'react-icons/fa';
-import ContactModal from '../ui/ContactModal';
-import MiniTerminal from '../ui/MiniTerminal';
+import { FaDownload, FaEnvelope, FaGithub, FaLinkedin, FaMapMarkerAlt, FaMedium } from 'react-icons/fa';
+import { profile } from '../../data/portfolio';
 import VisitorCount from '../ui/VisitorCount';
 
-const Hero = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
 
-  return (
-    <section className="pt-4 pb-10 px-4 max-w-7xl mx-auto flex flex-col md:flex-row gap-8 items-start justify-center">
+const pillBase = 'inline-flex min-h-10 items-center gap-2 rounded-full border px-4 py-2 text-sm transition-colors';
+const pillLight = `${pillBase} border-primary/10 bg-white text-primary hover:bg-primary/5`;
+const pillDark = `${pillBase} border-primary bg-primary text-white hover:bg-primary/90`;
 
+const Hero = () => (
+  <header>
+    <div className="mx-auto w-full max-w-[70.9rem]">
+      <div className="relative h-44 overflow-hidden rounded-b-[2rem] bg-[linear-gradient(135deg,#ede9fe_0%,#dbeafe_55%,#d1fae5_100%)] sm:h-56">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-[linear-gradient(rgba(28,33,43,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(28,33,43,0.05)_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:linear-gradient(to_bottom,black,transparent)]"
+        />
+      </div>
 
-      <div className="w-full md:w-1/3 bg-white border-2 border-b-4 border-r-4 border-black rounded-3xl p-6 shadow-neo flex flex-col items-center text-center relative overflow-hidden">
-
-        <div className="w-32 h-32 bg-custom-pink rounded-full border-4 border-black mb-4 flex items-center justify-center text-4xl overflow-hidden">
-          <img
-            src={`${import.meta.env.BASE_URL}cyril.jpg`}
-            alt="Cyril Jacob"
-            className="w-full h-full object-cover"
-          />
-
-        </div>
-
-        <h1 className="text-4xl font-shrikhand mb-1">CYRIL JACOB</h1>
-        <div className="bg-black text-white px-3 py-1 font-mono text-sm rounded-md mb-4 rotate-1">
-          SOFTWARE_ENGINEER()
-        </div>
-
-        <div className="w-full space-y-3 text-left font-bold text-sm font-mono border-t-2 border-black pt-4">
-          <div>
-            <span className="bg-custom-yellow px-1 border border-black mr-2">[LOCATION]</span>
-            NEW DELHI, INDIA
+      <div className="border-x border-primary/10 bg-white">
+        <div className="relative mx-auto max-w-3xl px-5 pb-10 pt-20 sm:px-7 sm:pt-24">
+          <div className="absolute -top-14 left-5 sm:-top-16 sm:left-7">
+            <img
+              src={asset('cyril.jpg')}
+              alt="Cyril Jacob"
+              width={144}
+              height={144}
+              className="h-28 w-28 rounded-full border-4 border-white object-cover shadow-sm sm:h-36 sm:w-36"
+            />
           </div>
-          <div>
-            <span className="bg-custom-green px-1 border border-black mr-2">[STATUS]</span>
-            4th YEAR BTECH STUDENT
-          </div>
-          <div>
-            <span className="bg-custom-blue px-1 border border-black mr-2">[MISSION]</span>
-            Build. Ship. Learn.
-          </div>
-        </div>
 
+          <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+            <div className="space-y-3">
+              <div className="space-y-1">
+                <h1 className="text-2xl font-normal md:text-3xl">{profile.name}</h1>
+                <p className="text-accent">{profile.headline}</p>
+              </div>
+              <p className="flex items-center gap-2 text-sm">
+                <FaMapMarkerAlt aria-hidden="true" className="text-secondary" />
+                {profile.location}
+              </p>
+              <p className="max-w-2xl leading-7 text-secondary">{profile.summary}</p>
+              <p className="flex items-center gap-2 text-sm text-primary">
+                <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-green-500" />
+                {profile.status}
+              </p>
+            </div>
 
-        <div className="w-full flex flex-col gap-3 mt-6">
-          <a
-            href={`${import.meta.env.BASE_URL}Cyril_Jacob_Resume.pdf`}
-            download="Cyril_Jacob_Resume.pdf"
-            className="bg-custom-green w-full min-h-11 py-3 rounded-xl border-2 border-black font-bold shadow-neo-sm hover:translate-y-1 hover:shadow-none transition-all flex items-center justify-center gap-2 cursor-pointer"
-          >
-            <FaDownload aria-hidden="true" /> DOWNLOAD_RESUME
-          </a>
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="bg-custom-red text-black w-full py-3 rounded-xl border-2 border-black font-bold shadow-neo-sm hover:translate-y-1 hover:shadow-none transition-all flex items-center justify-center gap-2 cursor-pointer"
-          >
-            <FaEnvelope /> CONTACT ME
-          </button>
-        </div>
-
-
-        <ul className="flex gap-2 mt-6 text-2xl flex-wrap justify-center">
-          {[
-            { href: 'mailto:itscyriljacob@gmail.com', label: 'Email', icon: <FaEnvelope />, tone: 'text-red-600' },
-            { href: 'https://github.com/cj445', label: 'GitHub', icon: <FaGithub />, tone: '' },
-            { href: 'https://www.linkedin.com/in/thecyriljacob/', label: 'LinkedIn', icon: <FaLinkedin />, tone: 'text-blue-700' },
-            { href: 'https://medium.com/@thecyriljacob', label: 'Medium', icon: <FaMedium />, tone: 'text-black' },
-            { href: 'https://www.instagram.com/ente.peru.cyril/', label: 'Instagram', icon: <FaInstagram />, tone: 'text-pink-700' },
-          ].map((l) => (
-            <li key={l.label}>
-              <a
-                href={l.href}
-                aria-label={l.label}
-                {...(l.href.startsWith('http') ? { target: '_blank', rel: 'noreferrer' } : {})}
-                className={`w-11 h-11 flex items-center justify-center rounded-full hover:scale-110 transition-transform ${l.tone}`}
-              >
-                {l.icon}
+            <div className="flex flex-wrap items-start gap-2 md:flex-col md:items-end">
+              <a href={asset('Cyril_Jacob_Resume.pdf')} download="Cyril_Jacob_Resume.pdf" className={pillDark}>
+                <FaDownload aria-hidden="true" /> Resume
               </a>
-            </li>
-          ))}
-        </ul>
-
-        <VisitorCount className="mt-4" />
-      </div>
-
-
-      <div className="w-full md:w-2/3 flex flex-col gap-6" id="about">
-
-        <div className="bg-custom-yellow p-6 md:p-10 rounded-3xl border-2 border-b-4 border-r-4 border-black shadow-neo">
-          <h2 className="text-4xl font-shrikhand mb-6">Hi people!</h2>
-          <p className="text-lg font-medium leading-relaxed mb-4">
-            I'm a <span className="font-bold bg-white px-1 border border-black">CSE (AI & ML) student at Karunya Institute of Technology & Sciences</span>, graduating in 2027. I build backend and distributed systems, cloud infrastructure, and DevOps pipelines, backed up by AI/ML and computer vision experience.
-          </p>
-          <p className="text-lg font-medium leading-relaxed mb-4">
-            I'm always excited to connect with folks building scalable products or conducting impactful AI research!
-          </p>
-          <div className="bg-white p-4 border-2 border-black rounded-xl inline-block font-bold shadow-neo-sm ">
-            🚀 Open to Software Engineering and Research opportunities
+              <a href={`mailto:${profile.email}`} className={pillLight}>
+                <FaEnvelope aria-hidden="true" /> {profile.email}
+              </a>
+              <div className="flex gap-2">
+                {[
+                  { href: profile.links.github, label: 'GitHub', icon: <FaGithub /> },
+                  { href: profile.links.linkedin, label: 'LinkedIn', icon: <FaLinkedin /> },
+                  { href: profile.links.medium, label: 'Medium', icon: <FaMedium /> },
+                ].map((l) => (
+                  <a
+                    key={l.label}
+                    href={l.href}
+                    aria-label={l.label}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/10 bg-white transition-colors hover:bg-primary/5"
+                  >
+                    {l.icon}
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
+
+          <VisitorCount className="mt-6" />
         </div>
-
-        <MiniTerminal />
       </div>
-
-      <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-
-    </section>
-  );
-};
+    </div>
+  </header>
+);
 
 export default Hero;

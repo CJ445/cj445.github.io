@@ -61,17 +61,17 @@ function drawFrame(canvas: HTMLCanvasElement, source: Source, detections: Detect
 }
 
 const Metric = ({ label, value, unit }: { label: string; value: string; unit?: string }) => (
-  <div className="border-2 border-neutral-700 rounded-lg px-3 py-2">
-    <div className="text-xs text-neutral-400 uppercase tracking-wider">{label}</div>
-    <div className="text-2xl font-bold text-white tabular-nums">
+  <div className="rounded-xl border border-primary/10 px-3 py-2">
+    <div className="text-xs uppercase tracking-[2px] text-primary/60">{label}</div>
+    <div className="text-xl tabular-nums">
       {value}
-      {unit && <span className="text-sm font-normal text-neutral-400 ml-1">{unit}</span>}
+      {unit && <span className="ml-1 text-sm text-secondary">{unit}</span>}
     </div>
   </div>
 );
 
 const InferenceMonitor = () => {
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const [phase, setPhase] = useState<Phase>('idle');
@@ -338,38 +338,19 @@ const InferenceMonitor = () => {
     .join(' ');
 
   return (
-    <section id="monitor" ref={sectionRef} className="py-10 px-4 max-w-7xl mx-auto scroll-mt-28">
-      <div className="flex items-center gap-4 mb-4">
-        <div className="bg-custom-green px-8 py-3 rounded-full border-4 border-black shadow-neo">
-          <h2 className="text-3xl font-shrikhand text-black">INFERENCE MONITOR</h2>
-        </div>
-      </div>
-      <p className="font-medium text-lg max-w-3xl mb-8 bg-white border-2 border-black rounded-xl px-4 py-3 shadow-neo-sm">
-        Real-time object detection, running entirely in <strong>your</strong> browser. Switch between FP32 and INT8
-        and compare their latency on your device. The WASM modes run on the CPU, so expect slower numbers than a native
-        or GPU deployment.
-      </p>
-
-      <div className="bg-black border-4 border-black rounded-2xl shadow-neo overflow-hidden font-mono text-white">
-        <div className="bg-gray-200 border-b-4 border-black px-4 py-2 flex items-center justify-between text-black">
-          <div className="flex gap-2" aria-hidden="true">
-            <div className="w-3 h-3 rounded-full bg-custom-red border-2 border-black"></div>
-            <div className="w-3 h-3 rounded-full bg-custom-yellow border-2 border-black"></div>
-            <div className="w-3 h-3 rounded-full bg-custom-green border-2 border-black"></div>
-          </div>
-          <span className="font-bold text-xs tracking-widest">inference-monitor.exe</span>
-          <span className="text-xs font-bold flex items-center gap-1.5 w-16 justify-end">
-            <span
-              aria-hidden="true"
-              className={`inline-block w-2 h-2 rounded-full border border-black ${running ? 'bg-custom-green' : 'bg-gray-400'}`}
-            ></span>
-            {running ? 'LIVE' : 'IDLE'}
+    <div ref={sectionRef}>
+      <div className="overflow-hidden rounded-[1.75rem] border border-primary/10 bg-white shadow-sm">
+        <div className="flex items-center justify-between border-b border-primary/10 px-4 py-3 text-sm">
+          <span className="font-medium">YOLOv8n · object detection</span>
+          <span className="flex items-center gap-2 text-xs text-secondary">
+            <span aria-hidden="true" className={`inline-block h-2 w-2 rounded-full ${running ? 'bg-green-500' : 'bg-primary/20'}`}></span>
+            {running ? 'Live' : 'Idle'}
           </span>
         </div>
 
-        <div className="grid lg:grid-cols-[minmax(0,1fr)_340px]">
+        <div className="grid lg:grid-cols-[minmax(0,1fr)_320px]">
           {/* Stage */}
-          <div className="relative bg-neutral-950 min-h-[22rem] lg:min-h-0 lg:aspect-[4/3] lg:border-r-4 border-black">
+          <div className="relative min-h-[22rem] border-primary/10 bg-primary text-white lg:min-h-[26rem] lg:border-r">
             <canvas
               ref={canvasRef}
               width={640}
@@ -380,32 +361,32 @@ const InferenceMonitor = () => {
                   ? `Live ${sourceKind === 'camera' ? 'camera feed' : 'sample image'} with detected objects outlined`
                   : 'Detection stage, not running'
               }
-              className={`w-full h-full object-contain ${running ? '' : 'invisible'}`}
+              className={`h-full w-full object-contain ${running ? '' : 'invisible'}`}
             />
 
             {phase === 'idle' && (
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-6 text-center">
-                <p className="text-lg font-bold max-w-md">YOLOv8n object detection, on-device.</p>
-                <div className="flex flex-col sm:flex-row gap-3">
+                <p className="max-w-md text-lg">YOLOv8n object detection, on-device.</p>
+                <div className="flex flex-col gap-3 sm:flex-row">
                   <button
                     onClick={() => start('camera')}
-                    className="min-h-11 bg-custom-green text-black font-bold px-6 py-2 rounded-xl border-2 border-white shadow-[4px_4px_0_rgba(255,255,255,1)] hover:translate-y-1 hover:shadow-none transition-all cursor-pointer"
+                    className="min-h-11 cursor-pointer rounded-full bg-white px-6 py-2 text-sm font-medium text-primary transition-colors hover:bg-white/90"
                   >
-                    START CAMERA
+                    Start camera
                   </button>
                   <button
                     onClick={() => start('sample')}
-                    className="min-h-11 bg-white text-black font-bold px-6 py-2 rounded-xl border-2 border-white shadow-[4px_4px_0_rgba(255,255,255,0.4)] hover:translate-y-1 hover:shadow-none transition-all cursor-pointer"
+                    className="min-h-11 cursor-pointer rounded-full border border-white/30 px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10"
                   >
-                    USE SAMPLE IMAGE
+                    Use sample image
                   </button>
                 </div>
-                <p className="text-sm text-neutral-300 max-w-md">
+                <p className="max-w-md text-sm text-white/70">
                   Nothing is uploaded. Frames stay in this tab. The first run downloads about {firstRunMB} MB (model
                   and runtime), then it is cached.
                 </p>
                 {error && (
-                  <p role="alert" className="text-sm font-bold text-black bg-custom-yellow border-2 border-black rounded-lg px-3 py-2 max-w-md">
+                  <p role="alert" className="max-w-md rounded-lg bg-amber-100 px-3 py-2 text-sm text-amber-900">
                     {error}
                   </p>
                 )}
@@ -413,8 +394,8 @@ const InferenceMonitor = () => {
             )}
 
             {loading && (
-              <div className="absolute inset-0 bg-black/80 flex flex-col items-center justify-center gap-3 p-6 text-center">
-                <p role="status" className="font-bold">{loading.text}</p>
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-primary/90 p-6 text-center">
+                <p role="status">{loading.text}</p>
                 {loading.progress !== undefined && (
                   <div
                     role="progressbar"
@@ -422,30 +403,30 @@ const InferenceMonitor = () => {
                     aria-valuemin={0}
                     aria-valuemax={100}
                     aria-valuenow={Math.round(loading.progress * 100)}
-                    className="w-64 h-3 border-2 border-white rounded-full overflow-hidden"
+                    className="h-2 w-64 overflow-hidden rounded-full bg-white/20"
                   >
-                    <div className="h-full bg-custom-green" style={{ width: `${loading.progress * 100}%` }}></div>
+                    <div className="h-full bg-white" style={{ width: `${loading.progress * 100}%` }}></div>
                   </div>
                 )}
               </div>
             )}
 
             {running && !loading && error && (
-              <p role="alert" className="absolute bottom-3 left-3 right-3 text-sm font-bold text-black bg-custom-yellow border-2 border-black rounded-lg px-3 py-2">
+              <p role="alert" className="absolute bottom-3 left-3 right-3 rounded-lg bg-amber-100 px-3 py-2 text-sm text-amber-900">
                 {error}
               </p>
             )}
           </div>
 
           {/* HUD */}
-          <div className="p-4 flex flex-col gap-4 bg-neutral-900">
+          <div className="flex flex-col gap-5 p-4">
             <fieldset>
-              <legend className="text-xs text-neutral-400 uppercase tracking-wider mb-2">Precision · backend</legend>
+              <legend className="mb-2 text-xs uppercase tracking-[2px] text-primary/60">Precision · backend</legend>
               <div className="flex flex-col gap-2">
                 {options.map((opt) => (
                   <label
                     key={opt}
-                    className="min-h-11 flex items-center justify-between gap-3 px-3 py-2 rounded-lg border-2 border-neutral-600 cursor-pointer text-sm font-bold has-[:checked]:bg-custom-green has-[:checked]:text-black has-[:checked]:border-white has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-white"
+                    className="flex min-h-11 cursor-pointer items-center justify-between gap-3 rounded-xl border border-primary/10 px-3 py-2 text-sm has-[:checked]:border-accent has-[:checked]:bg-violet-50 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-accent"
                   >
                     <span className="flex items-center gap-2">
                       <input
@@ -454,11 +435,11 @@ const InferenceMonitor = () => {
                         value={opt}
                         checked={variant === opt}
                         onChange={() => changeVariant(opt)}
-                        className="accent-black"
+                        className="accent-[#6d28d9]"
                       />
                       {VARIANTS[opt].label}
                     </span>
-                    <span className="text-xs font-normal opacity-80">{VARIANTS[opt].sizeMB} MB</span>
+                    <span className="text-xs text-secondary">{VARIANTS[opt].sizeMB} MB</span>
                   </label>
                 ))}
               </div>
@@ -472,24 +453,24 @@ const InferenceMonitor = () => {
             </div>
 
             <div>
-              <div className="text-xs text-neutral-400 uppercase tracking-wider mb-1">Inference latency</div>
-              <svg viewBox="0 0 100 36" preserveAspectRatio="none" className="w-full h-10" aria-hidden="true">
-                <polyline points={sparkPoints} fill="none" stroke="#4ADE80" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
+              <div className="mb-1 text-xs uppercase tracking-[2px] text-primary/60">Inference latency</div>
+              <svg viewBox="0 0 100 36" preserveAspectRatio="none" className="h-10 w-full" aria-hidden="true">
+                <polyline points={sparkPoints} fill="none" stroke="#6d28d9" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
               </svg>
             </div>
 
-            <div className="text-sm border-t-2 border-neutral-700 pt-3 leading-relaxed">
+            <div className="border-t border-dashed border-primary/10 pt-3 text-sm leading-relaxed">
               {delta !== null ? (
                 <p>
-                  <span className="text-custom-green font-bold">
+                  <span className="font-medium text-accent">
                     INT8 vs FP32 in your browser: {delta >= 0 ? `−${delta}%` : `+${-delta}%`} latency
                   </span>{' '}
-                  <span className="text-neutral-300">
+                  <span className="text-secondary">
                     ({int8!.toFixed(0)} vs {fp32!.toFixed(0)} ms, WASM)
                   </span>
                 </p>
               ) : (
-                <p className="text-neutral-300">
+                <p className="text-secondary">
                   {running
                     ? 'Try both FP32 and INT8 (WASM) to compare them on your device.'
                     : 'Start the demo, then switch precision to compare.'}
@@ -497,49 +478,50 @@ const InferenceMonitor = () => {
               )}
             </div>
 
-            <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-xs text-neutral-300">
-              <dt className="text-neutral-400">Model</dt>
+            <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-xs">
+              <dt className="text-secondary">Model</dt>
               <dd>YOLOv8n · COCO 80</dd>
-              <dt className="text-neutral-400">Input</dt>
+              <dt className="text-secondary">Input</dt>
               <dd>320×320, letterboxed</dd>
-              <dt className="text-neutral-400">Running</dt>
+              <dt className="text-secondary">Running</dt>
               <dd>{v.label}</dd>
             </dl>
 
             {phase !== 'idle' && (
               <button
                 onClick={stop}
-                className="min-h-11 mt-auto bg-custom-red text-black font-bold px-4 py-2 rounded-xl border-2 border-white hover:translate-y-1 transition-transform cursor-pointer"
+                className="mt-auto min-h-11 cursor-pointer rounded-full border border-primary/10 px-4 py-2 text-sm transition-colors hover:bg-primary/5"
               >
-                STOP {sourceKind === 'camera' ? 'CAMERA' : 'DEMO'}
+                Stop {sourceKind === 'camera' ? 'camera' : 'demo'}
               </button>
             )}
           </div>
         </div>
 
-        <div className="border-t-4 border-black bg-neutral-950 px-4 py-3 text-xs text-neutral-300 leading-relaxed">
+        <div className="border-t border-primary/10 bg-primary/[0.02] px-4 py-3 text-xs leading-relaxed text-secondary">
           <details className="group mb-3">
-            <summary className="min-h-11 flex items-center gap-2 cursor-pointer font-bold text-neutral-200 marker:content-none [&::-webkit-details-marker]:hidden">
+            <summary className="flex min-h-11 cursor-pointer items-center gap-2 font-medium text-primary marker:content-none [&::-webkit-details-marker]:hidden">
               <span aria-hidden="true" className="inline-block transition-transform group-open:rotate-90">▸</span>
               How this runs
             </summary>
-            <ul className="mt-1 mb-2 ml-5 list-disc space-y-1.5">
+            <ul className="mb-2 ml-5 mt-1 list-disc space-y-1.5">
               <li>
-                <strong className="text-white">Hosting:</strong> this site is static files on GitHub Pages: the page,
-                the two ONNX models and the WebAssembly runtime. There is no backend and no inference server.
+                <strong className="font-medium text-primary">Hosting:</strong> this site is static files on GitHub
+                Pages: the page, the two ONNX models and the WebAssembly runtime. There is no backend and no inference
+                server.
               </li>
               <li>
-                <strong className="text-white">Inference:</strong> your browser downloads those files and runs the model
-                in a Web Worker on your device. The WASM modes use your CPU; the WebGPU mode uses your GPU when the
-                browser supports it.
+                <strong className="font-medium text-primary">Inference:</strong> your browser downloads those files and
+                runs the model in a Web Worker on your device. The WASM modes use your CPU; the WebGPU mode uses your
+                GPU when the browser supports it.
               </li>
               <li>
-                <strong className="text-white">Your frames:</strong> camera frames stay in this tab and are never sent
-                anywhere.
+                <strong className="font-medium text-primary">Your frames:</strong> camera frames stay in this tab and
+                are never sent anywhere.
               </li>
               <li>
-                <strong className="text-white">Why the numbers are modest:</strong> static hosting can't enable
-                multi-threaded WASM, so the CPU modes run on a single thread.
+                <strong className="font-medium text-primary">Why the numbers are modest:</strong> static hosting can't
+                enable multi-threaded WASM, so the CPU modes run on a single thread.
               </li>
             </ul>
           </details>
@@ -552,7 +534,7 @@ const InferenceMonitor = () => {
       <div className="sr-only" aria-live="polite">
         {summary}
       </div>
-    </section>
+    </div>
   );
 };
 

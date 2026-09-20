@@ -28,3 +28,6 @@ cyril-info/
 .claude/
 .agents/
 skills-lock.json
+
+# Reference repos cloned for design inspiration (each has its own .git)
+inspirations/
