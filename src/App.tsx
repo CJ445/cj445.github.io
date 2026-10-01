@@ -1,3 +1,5 @@
+import { useSyncExternalStore } from 'react';
+import AgentView from './components/AgentView';
 import Footer from './components/layout/Footer';
 import About from './components/sections/About';
 import Education from './components/sections/Education';
@@ -9,23 +11,29 @@ import Projects from './components/sections/Projects';
 import Recognition from './components/sections/Recognition';
 import Skills from './components/sections/Skills';
 import Writing from './components/sections/Writing';
+import { isAgentMode, subscribeAgentMode } from './lib/agentMode';
 
-const App = () => (
-  <div className="min-h-screen overflow-x-hidden bg-surface selection:bg-accent/30">
-    <Hero />
-    <main>
-      <About />
-      <FeaturedWork />
-      <Experience />
-      <Projects />
-      <LiveDemo />
-      <Skills />
-      <Education />
-      <Recognition />
-      <Writing />
-    </main>
-    <Footer />
-  </div>
-);
+const App = () => {
+  const agent = useSyncExternalStore(subscribeAgentMode, isAgentMode);
+  if (agent) return <AgentView />;
+
+  return (
+    <div className="min-h-screen overflow-x-hidden bg-surface selection:bg-accent/30">
+      <Hero />
+      <main>
+        <About />
+        <FeaturedWork />
+        <Experience />
+        <Projects />
+        <LiveDemo />
+        <Skills />
+        <Education />
+        <Recognition />
+        <Writing />
+      </main>
+      <Footer />
+    </div>
+  );
+};
 
 export default App;

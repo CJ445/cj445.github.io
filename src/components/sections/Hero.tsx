@@ -1,5 +1,6 @@
 import { FaDownload, FaEnvelope, FaGithub, FaLinkedin, FaMapMarkerAlt, FaMedium } from 'react-icons/fa';
 import { profile } from '../../data/portfolio';
+import AgentToggle from '../ui/AgentToggle';
 import ThemeToggle from '../ui/ThemeToggle';
 import VisitorCount from '../ui/VisitorCount';
 
@@ -15,7 +16,8 @@ const Hero = () => (
       <div className="hero-banner relative h-44 overflow-hidden rounded-b-[2rem] sm:h-56">
         <div aria-hidden="true" className="hero-glow" />
         <div aria-hidden="true" className="grid-overlay" />
-        <div className="relative mx-auto flex max-w-3xl justify-end px-3 pt-3 sm:px-5">
+        <div className="relative mx-auto flex max-w-3xl justify-end gap-1 px-3 pt-3 sm:px-5">
+          <AgentToggle />
           <ThemeToggle />
         </div>
       </div>

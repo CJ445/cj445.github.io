@@ -15,6 +15,10 @@ Live at **https://cj445.github.io**
 
 All copy lives in `src/data/portfolio.ts`; the section components only render it. Project images are in `public/images/projects/`.
 
+## Agent mode
+
+The **Agent mode** button in the header swaps the UI for the whole portfolio as one markdown file, in green on black (`?mode=agent` opens it directly). The markdown is generated from `src/data/portfolio.ts` by `src/data/agentMarkdown.ts`, so it never drifts from the page. The build also emits it as `/agent.md` and embeds it in `index.html` inside `<noscript>`, so scrapers that don't run JavaScript get the same content.
+
 ## Run locally
 
 ```bash

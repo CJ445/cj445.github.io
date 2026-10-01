@@ -19,6 +19,11 @@
       // Set the appearance before first paint so night never flashes white.
       (function () {
         try {
+          var agent = /[?&]mode=agent\b/.test(location.search) || localStorage.getItem('mode') === 'agent';
+          if (agent) {
+            document.documentElement.classList.add('agent');
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000000');
+          }
           var saved = localStorage.getItem('theme');
           var dark = saved ? saved === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
           if (dark) document.documentElement.classList.add('dark');
@@ -27,6 +32,7 @@
         } catch (e) {}
       })();
     </script>
+    <link rel="alternate" type="text/markdown" href="/agent.md" title="Agent mode: the whole portfolio as one markdown file" />
     <title>Cyril Jacob — Software Engineer</title>
   </head>
   <body>
