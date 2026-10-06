@@ -105,7 +105,8 @@ const Journey = ({ onOpenSheet }: JourneyProps) => {
       const power = clamp(v[POWER]);
       const hint = document.querySelector<HTMLElement>('.gpu-scroll-hint');
       if (hint) hint.style.opacity = String(clamp(1 - y / (vh * 0.12)));
-      if (hudRef.current) hudRef.current.style.opacity = String(clamp(1 - (f - 1.7) / 0.8));
+      // Gone before the first stage's text arrives (it starts to appear at f = 1.3), so the two never share a corner.
+      if (hudRef.current) hudRef.current.style.opacity = String(clamp(1 - (f - 0.95) / 0.3));
       if (clockRef.current) clockRef.current.textContent = Math.round(power * MAX_CLOCK).toLocaleString();
       if (fanRef.current) fanRef.current.textContent = Math.round(power * power * MAX_RPM).toLocaleString();
       segRefs.current.forEach((s, i) => s && s.classList.toggle('is-on', power * SEGS * 1.02 > i));
