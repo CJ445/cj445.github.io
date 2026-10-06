@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { COCO_LABELS } from '../inference/coco';
+import { reportIdle, reportInference } from '../../lib/inferenceLive';
 import { VARIANTS } from '../inference/protocol';
 import type { Detection, Variant, WorkerIn, WorkerOut } from '../inference/protocol';
 
@@ -106,6 +107,7 @@ const InferenceMonitor = () => {
   const stopLoop = useCallback(() => {
     const s = rt.current;
     s.running = false;
+    reportIdle();
     cancelAnimationFrame(s.raf);
     s.stream?.getTracks().forEach((t) => t.stop());
     s.stream = null;
@@ -177,6 +179,7 @@ const InferenceMonitor = () => {
         s.inflight = false;
         s.detections = m.detections;
         s.latencies.push(m.inferMs);
+        reportInference(m.inferMs, m.detections.length);
         if (s.latencies.length > WINDOW * 2) s.latencies.shift();
         s.finished.push(performance.now());
         if (s.finished.length > 240) s.finished.shift();

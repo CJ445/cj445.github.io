@@ -13,8 +13,22 @@ const Recognition = () => (
             <h3 className="font-medium">{r.title}</h3>
             <p className="mt-1 text-sm text-accent">{r.result}</p>
             <p className="mt-2 leading-7 text-secondary">{r.detail}</p>
+            {r.photos && (
+              <ul className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                {r.photos.map((p) => (
+                  <li key={p.src}>
+                    <img
+                      src={`${import.meta.env.BASE_URL}${p.src}`}
+                      alt={p.alt}
+                      loading="lazy"
+                      className="dim-dark aspect-[4/3] w-full rounded-xl border border-primary/10 object-cover"
+                    />
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
-          <p className="h-fit w-fit rounded-lg border border-primary/10 px-3 py-1.5 text-sm">{r.period}</p>
+          {r.period && <p className="h-fit w-fit rounded-lg border border-primary/10 px-3 py-1.5 text-sm">{r.period}</p>}
         </li>
       ))}
     </ul>

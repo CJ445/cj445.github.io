@@ -2,6 +2,7 @@ import { FaDownload, FaEnvelope, FaGithub, FaLinkedin, FaMapMarkerAlt, FaMedium 
 import { profile } from '../../data/portfolio';
 import AgentToggle from '../ui/AgentToggle';
 import ThemeToggle from '../ui/ThemeToggle';
+import ViewToggle from '../ui/ViewToggle';
 import VisitorCount from '../ui/VisitorCount';
 
 const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
@@ -17,6 +18,7 @@ const Hero = () => (
         <div aria-hidden="true" className="hero-glow" />
         <div aria-hidden="true" className="grid-overlay" />
         <div className="relative mx-auto flex max-w-3xl justify-end gap-1 px-3 pt-3 sm:px-5">
+          <ViewToggle view="2d" />
           <AgentToggle />
           <ThemeToggle />
         </div>

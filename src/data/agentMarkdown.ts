@@ -107,7 +107,7 @@ export const buildAgentMarkdown = (): string => {
     '',
   );
 
-  add('## Recognition', '', ...recognition.map((r) => `- **${r.title}**, ${r.result} (${r.period}). ${r.detail}`), '');
+  add('## Recognition', '', ...recognition.map((r) => `- **${r.title}**, ${r.result}${r.period ? ` (${r.period})` : ''}. ${r.detail}`), '');
 
   add('## Writing', '', ...articles.map((a) => `- [${a.title}](${a.href}): ${a.summary}`), '');
 

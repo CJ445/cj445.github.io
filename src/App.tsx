@@ -1,6 +1,7 @@
 import { useSyncExternalStore } from 'react';
 import AgentView from './components/AgentView';
 import Footer from './components/layout/Footer';
+import World from './components/gpu/World';
 import About from './components/sections/About';
 import Education from './components/sections/Education';
 import Experience from './components/sections/Experience';
@@ -12,28 +13,32 @@ import Recognition from './components/sections/Recognition';
 import Skills from './components/sections/Skills';
 import Writing from './components/sections/Writing';
 import { isAgentMode, subscribeAgentMode } from './lib/agentMode';
+import { getView, subscribeView } from './lib/viewMode';
+
+/** The original flat page, kept as the 2D view. */
+const Classic = () => (
+  <div className="min-h-screen overflow-x-hidden bg-surface selection:bg-accent/30">
+    <Hero />
+    <main>
+      <About />
+      <FeaturedWork />
+      <Experience />
+      <Projects />
+      <LiveDemo />
+      <Skills />
+      <Education />
+      <Recognition />
+      <Writing />
+    </main>
+    <Footer />
+  </div>
+);
 
 const App = () => {
   const agent = useSyncExternalStore(subscribeAgentMode, isAgentMode);
+  const view = useSyncExternalStore(subscribeView, getView);
   if (agent) return <AgentView />;
-
-  return (
-    <div className="min-h-screen overflow-x-hidden bg-surface selection:bg-accent/30">
-      <Hero />
-      <main>
-        <About />
-        <FeaturedWork />
-        <Experience />
-        <Projects />
-        <LiveDemo />
-        <Skills />
-        <Education />
-        <Recognition />
-        <Writing />
-      </main>
-      <Footer />
-    </div>
-  );
+  return view === '2d' ? <Classic /> : <World />;
 };
 
 export default App;

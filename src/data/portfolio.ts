@@ -3,7 +3,7 @@ export const profile = {
   headline: 'Software Engineer · Distributed Systems, Cloud & AI/ML',
   location: 'New Delhi, India',
   summary:
-    'CSE (AI & ML) student at Karunya Institute of Technology & Sciences, graduating in 2027. I build backend and distributed systems, cloud infrastructure, and DevOps pipelines, backed by AI/ML and computer vision experience.',
+    'I build AI systems that go beyond models, focusing on deployment, infrastructure and real-world impact. CSE (AI & ML) student at Karunya Institute of Technology & Sciences, graduating in 2027, with backend, cloud, DevOps and computer vision experience.',
   status: 'Open to software engineering and research opportunities',
   email: 'itscyriljacob@gmail.com',
   links: {
@@ -16,6 +16,7 @@ export const profile = {
 export const about = [
   'At Graceful Management Systems I automated server provisioning and built CI/CD and containerized deployments on Azure. At Karunya Innovation and Design Studio I optimized computer vision models for NVIDIA hardware with TensorRT.',
   'Outside of work I compete in ISRO hackathons on satellite image super-resolution, and I am always keen to connect with people building scalable products or doing impactful AI research.',
+  'Beyond code, I teach and organize. I have run workshops on Python, data science and Jetson edge AI at Karunya Innovation and Design Studio, and I led GDSC Karunya as Lead for 2024 to 2025.',
 ];
 
 export interface Stat {
@@ -127,14 +128,37 @@ export const experience: Role[] = [
     ],
   },
   {
+    role: 'Industrial Training Trainee',
+    company: 'Intel Unnati Program, Intel Corporation',
+    location: 'Team project: visual search with VLMs',
+    period: 'Feb 2025 – Apr 2025',
+    points: [
+      'Built a visual search engine on vision-language models: images and text are embedded into one shared space, so a text query or a sample image retrieves the right pictures.',
+      'Implemented scalable indexing and fast similarity search for large datasets, with multi-modal querying from text or image input.',
+      'Evaluated retrieval quality with industry-standard metrics. Team of three, guided by faculty mentors.',
+    ],
+  },
+  {
     role: 'Computer Vision Engineer (Trainee)',
     company: 'Karunya Innovation and Design Studio',
     location: 'Coimbatore, India',
-    period: 'Jul 2024 – Dec 2024',
+    period: 'Jul 2024 – Dec 2025',
     points: [
       'Deployed real-time CCTV analytics with NVIDIA DeepStream SDK, raising streaming throughput 40% (15 to 21 FPS).',
       'Optimized YOLOv8 and Mask R-CNN with TensorRT INT8 quantization, reducing latency by 60%.',
       'Managed Git/GitHub collaboration across a multi-member team building practical computer vision systems.',
+    ],
+  },
+  {
+    role: 'Junior Software Developer (Internship)',
+    company: 'EthicCoders',
+    location: 'Remote',
+    period: 'Jul 2021 – Dec 2021',
+    points: [
+      'Trained in Dart and Flutter to build Android and iOS apps, from a weather app on a public API to a range of UI challenges, then moved into teams working on real apps.',
+      "With teammates, built 'Joyful Lips', a digital version of the book that proved useful during the COVID period.",
+      'Merged work through Git, Bitbucket and Sourcetree, and made app promo images and videos for YouTube and the Play Store, plus Canva content for the BeInspired and Nearby Churches apps.',
+      "Supported customers of new and released apps, and tested the eMissal and Radio Veritas apps, submitting detailed bug reports.",
     ],
   },
 ];
@@ -149,12 +173,28 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    title: 'Inference Autopilot',
+    period: 'Oct 2026',
+    summary:
+      'An autonomous SRE for LLM inference. It monitors an inference stack, identifies what went wrong with real GPU telemetry and deterministic root-cause analysis, suggests a policy-gated remediation, then checks that the fix actually worked. Open source.',
+    tags: ['Logs', 'Metrics', 'Traces', 'Health checks', 'RCA', 'Remediation'],
+    href: 'https://github.com/CJ445/inference-autopilot',
+  },
+  {
     title: 'IoT Fleet Management Platform',
     period: 'Oct – Nov 2025',
     summary:
       'Distributed edge orchestration for 100+ Raspberry Pi nodes using containerized microservices, PostgreSQL, MongoDB and Redis. OTA updates with rollback, real-time telemetry, and remote commands over MQTT and REST.',
     tags: ['Docker', 'PostgreSQL', 'MongoDB', 'Redis', 'MQTT'],
     href: 'https://github.com/cj445/IoT-Fleet-Management',
+  },
+  {
+    title: 'Visual Search with Vision-Language Models',
+    period: 'Feb – Apr 2025',
+    summary:
+      'Retrieves images from a text query or a sample image by embedding both into a shared space, with indexed similarity search over large datasets. Built for the Intel Unnati Industrial Training Program.',
+    tags: ['VLMs', 'Embeddings', 'Similarity search', 'Python'],
+    href: 'https://github.com/CJ445/Intel-Unnati-VLM',
   },
   {
     title: 'Real-Time Occupancy Analytics',
@@ -225,13 +265,15 @@ export const publications = [
   },
   {
     title: 'Smart Security Management using IoT and HC-05 Bluetooth Module',
-    venue: 'IEEE',
-    status: '2024',
+    venue: '2024 8th International Conference on Inventive Systems and Control (ICISC), IEEE',
+    status: 'Presented 29–30 Jul 2024, on IEEE Xplore 19 Sep 2024',
   },
 ];
 
 export const certifications = [
   'Microsoft Certified: Azure Fundamentals',
+  'Intel Unnati Industrial Training Program',
+  'MongoDB certification (12 units)',
   'SnowPro Associate: Platform Certification',
   'NVIDIA Deep Learning and AI on Jetson Nano',
   'Duke University: RAG',
@@ -240,12 +282,26 @@ export const certifications = [
   'OpenCV Bootcamp',
 ];
 
-export const recognition = [
+export interface RecognitionItem {
+  title: string;
+  result: string;
+  detail: string;
+  period: string;
+  photos?: { src: string; alt: string }[];
+}
+
+export const recognition: RecognitionItem[] = [
   {
     title: 'Bharatiya Antariksh Hackathon 2025 (ISRO)',
     result: '4th place nationally',
     detail: 'Team Lead. Satellite image super-resolution among 61,000+ students across 8,744 teams.',
     period: '2025',
+    photos: [
+      { src: 'images/posts/bah-banner.webp', alt: 'The Grand Finale screen at NRSC naming Team HumbleOps: Cyril Jacob, Basil Shaji and Ayush David of Karunya.' },
+      { src: 'images/posts/bah-ceremony.webp', alt: 'The team on stage at the NRSC outreach facility receiving their award from ISRO officials.' },
+      { src: 'images/posts/bah-group.webp', alt: 'All Grand Finale participants and organizers in the NRSC auditorium in Hyderabad.' },
+      { src: 'images/posts/bah-nrsc.webp', alt: 'The NRSC Training and Outreach building in Hyderabad with a launch vehicle model beside it.' },
+    ],
   },
   {
     title: 'Smart India Hackathon 2025 (ISRO track)',
@@ -257,6 +313,25 @@ export const recognition = [
     title: 'Google Developer Groups On Campus, Karunya',
     result: 'Campus Lead',
     detail: 'Led a 25-member student engineering community and organized workshops, developer events, and a state-level hackathon.',
+    period: '2024 – 2025',
+  },
+  {
+    title: "Institution's Innovation Council, Karunya",
+    result: 'Student Coordinator',
+    detail:
+      "Coordinated student work for the Ministry of Education's Innovation Cell, set up in 2018 to build a culture of innovation across higher education institutions.",
+    period: 'Nov 2024 – Nov 2025',
+  },
+  {
+    title: 'Competition wins',
+    result: 'Three #1 finishes',
+    detail: 'First place in a Technical Quiz, in IoT Odyssey MK24, and the Academic Incentive Award.',
+    period: '',
+  },
+  {
+    title: 'Workshops taught, Karunya Innovation and Design Studio',
+    result: 'Teaching beyond the classroom',
+    detail: 'Python for IGCSE students from Hebron School, data science and machine learning for Kathir College, and an Arduino programme for school children.',
     period: '2024 – 2025',
   },
 ];

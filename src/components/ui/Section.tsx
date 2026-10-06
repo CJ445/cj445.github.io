@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import type { ReactNode } from 'react';
+import { SheetContext } from './SheetContext';
 
 interface SectionProps {
   id: string;
@@ -10,7 +12,18 @@ interface SectionProps {
   children: ReactNode;
 }
 
-const Section = ({ id, eyebrow, title, description, tint = false, children }: SectionProps) => (
+const Section = ({ id, eyebrow, title, description, tint = false, children }: SectionProps) => {
+  const inSheet = useContext(SheetContext);
+  return inSheet ? (
+    <section id={`sheet-${id}`} className="px-5 py-8 sm:px-8">
+      <div className="max-w-2xl space-y-3">
+        <p className="text-[11px] font-medium uppercase tracking-[2px] text-primary/60">{eyebrow}</p>
+        <h2 className="text-[clamp(1.6rem,2.4vw,2.25rem)] font-normal leading-tight tracking-[-0.03em]">{title}</h2>
+        {description && <p className="max-w-xl text-sm leading-7 text-secondary">{description}</p>}
+      </div>
+      <div className="mt-8">{children}</div>
+    </section>
+  ) : (
   <section id={id} className="border-t border-primary/10">
     <div className="mx-auto w-full max-w-[70.9rem]">
       <div className={`relative overflow-hidden border-x border-primary/10 ${tint ? 'section-tint' : 'bg-surface'}`}>
@@ -28,6 +41,7 @@ const Section = ({ id, eyebrow, title, description, tint = false, children }: Se
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default Section;
